@@ -140,7 +140,7 @@ const orderedSports = (country, field, sortAscending) => {
   if (field) {
     fieldString = `ORDER BY ${field} ${sort}`;
   }
-  return `SELECT sport, COUNT(sport) AS count FROM GoldMedal WHERE country = '${country}' GROUP BY sport ${fieldString}`;
+  return `SELECT sport, COUNT(sport) AS count, COUNT(sport) * 100 / (SELECT count(*) FROM GoldMedal WHERE country = '${country}') as percent FROM GoldMedal WHERE country = '${country}' GROUP BY sport ${fieldString};`;
 };
 
 module.exports = {
